@@ -1,6 +1,0 @@
-# Настройки Jekyll
-title: "Мой сайт"
-description: "Сайт на GitHub Pages"
-# Указываем, что публиковать из папки src
-include:
-  - src
