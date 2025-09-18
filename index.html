@@ -2,50 +2,78 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Главная - Название вашего сайта</title>
-  <meta name="description" content="Краткое описание главной страницы вашего сайта">
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
+  <meta content="Краткое описание главной страницы вашего сайта" name="description">
+  <link href="assets/favicon.ico" rel="icon" type="image/x-icon">
+  <link href="style.css" rel="stylesheet">
+  <script defer src="main.js"></script>
 </head>
 <body>
-  <!-- Шапка сайта -->
-  <header>
-    <a href="/">Логотип или название сайта</a>
-    <!-- Главное меню навигации -->
-    <nav>
-      <ul>
-       <li><a href="index.html">Главная</a></li>
-       <li><a href="about.html">О нас</a></li>
-       <li><a href="contacts.html">Контакты</a></li>
-      </ul>
-    </nav>
-  </header>
-  <!-- Уникальное основное содержимое страницы -->
-  <main>
-    <h1>Добро пожаловать на наш сайт!</h1>
-    <!-- Секция 1 с якорем -->
-    <section id="services">
-      <h2>Наши услуги</h2>
-      <p>Описание предоставляемых услуг...</p>
-      <a href="#contacts">Связаться с нами</a> <!-- Якорная ссылка внутри страницы -->
-    </section>
-    <!-- Секция 2 с якорем -->
-    <section id="portfolio">
-      <h2>Портфолио</h2>
-      <p>Примеры наших работ...</p>
-    </section>
-    <!-- Секция 3 с якорем -->
-    <section id="contacts">
-      <h2>Контактная информация</h2>
-      <p>Наши контакты...</p>
-      <a href="contacts.html">Подробнее</a> <!-- Ссылка на отдельную страницу -->
-    </section>
-  </main>
-  <!-- Подвал сайта -->
-  <footer>
-    <p>&copy; 2023 Название вашего сайта. Все права защищены.</p>
-    <p>Телефон: +7 (123) 456-78-90</p>
-  </footer>
+<!-- Шапка сайта -->
+<header>
+  <a href="/">Логотип или название сайта</a>
+  <!-- Главное меню навигации -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Главная</a></li>
+      <li><a href="about.html">О нас</a></li>
+      <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+  </nav>
+</header>
+<!-- Уникальное основное содержимое страницы -->
+<button aria-pressed="false" class="theme-toggle" type="button">Тема</button>
+<script>
+    const KEY = 'theme', btn = document.querySelector('.theme-toggle');
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    // Автовыбор: системная тема или сохранённый выбор пользователя
+    if (localStorage.getItem(KEY) === 'dark' || (!localStorage.getItem(KEY) &&
+        prefersDark)) {
+        document.body.classList.add('theme-dark');
+        btn?.setAttribute('aria-pressed', 'true');
+    }
+    // Переключение по кнопке с сохранением в localStorage
+    btn?.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('theme-dark');
+        btn.setAttribute('aria-pressed', String(isDark));
+        localStorage.setItem(KEY, isDark ? 'dark' : 'light');
+    });
+</script>
+<main>
+  <h1>Добро пожаловать на наш сайт!</h1>
+  <!-- Секция 1 с якорем -->
+  <section id="services">
+    <h2>Наши услуги</h2>
+    <p>Описание предоставляемых услуг...</p>
+    <a href="#contacts">Связаться с нами</a> <!-- Якорная ссылка внутри страницы -->
+  </section>
+  <!-- Секция 2 с якорем -->
+  <section id="portfolio">
+    <h2>Портфолио</h2>
+  </section>
+  <figure>
+    <img
+        alt="Проект: макет мобильного приложения"
+        loading="lazy"
+        sizes="(max-width: 700px) 92vw, (max-width: 1200px) 640px, 960px"
+        src="./example-of-mobile-app1.jpg"
+        srcset="./example-of-mobile-app1.jpg 640w, ./example-of-mobile-app2.jpg 960w, ./example-of-mobile-app3.jpg
+1280w">
+    <figcaption>Наше мобильное приложение</figcaption>
+  </figure>
+
+  <!-- Секция 3 с якорем -->
+  <section id="contacts">
+    <h2>Контактная информация</h2>
+    <p>Наши контакты...</p>
+    <a href="contacts.html">Подробнее</a> <!-- Ссылка на отдельную страницу -->
+  </section>
+</main>
+<!-- Подвал сайта -->
+<footer>
+  <p>&copy; 2023 Название вашего сайта. Все права защищены.</p>
+  <p>Телефон: +7 (123) 456-78-90</p>
+</footer>
 </body>
 </html>
