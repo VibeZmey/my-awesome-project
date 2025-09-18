@@ -1,13 +1,41 @@
-dialog { padding: 1.25rem; border: none; border-radius: 12px; }
-dialog::backdrop { background: rgba(0,0,0,.5); }
-.form-actions { display:flex; gap:.5rem; margin-top:1rem; }
+dialog {
+    padding: 1.25rem;
+    border: none;
+    border-radius: 12px;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, .5);
+}
+
+.form-actions {
+    display: flex;
+    gap: .5rem;
+    margin-top: 1rem;
+}
+
 /* БАЗА: читаемость и предсказуемость размеров */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial,
-sans-serif; line-height: 1.5; }
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+    line-height: 1.5;
+}
+
 /* Формы: размеры, отступы, визуальный порядок */
-label { display: block; margin: 0.5rem 0 0.25rem; }
+label {
+    display: block;
+    margin: 0.5rem 0 0.25rem;
+}
+
 input, select, textarea, button {
     width: 100%;
     max-width: 480px;
@@ -16,6 +44,7 @@ input, select, textarea, button {
     border-radius: 8px;
     background: #fff;
 }
+
 /* Кнопка по умолчанию */
 button, [type="submit"] {
     background: #0a84ff;
@@ -23,11 +52,178 @@ button, [type="submit"] {
     border: none;
     cursor: pointer;
 }
+
 /* Состояния: клавиатура/мышь/ошибки */
 :where(input, select, textarea, button):focus-visible {
-    outline: 2px solid #0a84ff; outline-offset: 2px;
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
 }
-button:hover { filter: brightness(0.95); }
-:disabled, [aria-disabled="true"] { opacity: .6; cursor: not-allowed; }
+
+button:hover {
+    filter: brightness(0.95);
+}
+
+:disabled, [aria-disabled="true"] {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
 /* Подсветка ошибочных полей (установите aria-invalid="true") */
-[aria-invalid="true"] { border-color: #b00020; }
+[aria-invalid="true"] {
+    border-color: #b00020;
+}
+
+:root {
+    /* Палитра */
+    --color-bg: #fff;
+    --color-fg: #0b0b0b;
+    --color-muted: #666;
+    --color-primary: #0a84ff;
+    --color-danger: #b00020;
+    /* Типографика и размеры */
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 40px;
+    /* Скругления и тени */
+    --radius: 12px;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .08), 0 8px 24px rgba(0, 0, 0, .08);
+}
+
+/* Тёмная тема: переопределяем только значения токенов */
+body.theme-dark {
+    --color-bg: #0b0b0b;
+    --color-fg: #f5f5f5;
+    --color-muted: #aaa;
+    --color-primary: #6aa2ff;
+}
+
+/* :where(...) не добавляет специфичности — проще переопределять позже */
+:where(a,button,input,select,textarea):focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Недоступные элементы визуально «приглушаем» */
+:disabled, [aria-disabled="true"] {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Плавная прокрутка к #якорю */
+:target {
+    outline: 2px dashed var(--color-primary);
+    outline-offset: 4px;
+}
+
+/*
+Подсветка цели */
+
+/* Reset-минимум — подробнее в 1.8 */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-body);
+    line-height: 1.5;
+}
+
+/* Центровка и ограничение ширины контейнера */
+.container {
+    width: min(100% - 2 * var(--space-4), 1120px);
+    margin-inline: auto;
+}
+
+/* Вертикальные отступы секций по токенам */
+.section {
+    padding-block: var(--space-5);
+}
+
+.section__title {
+    margin: 0 0 var(--space-3);
+}
+
+/* Хорошо: опора на БЭМ-класс компонента */
+.site-nav__link {
+    color: var(--color-fg);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Проще считать ширины/высоты */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Убираем стартовые отступы браузера */
+/* Медиа не «выпрыгивают» из контейнеров */
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Форм-контролы наследуют шрифт и цвет */
+button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+}
+
+:root {
+    color-scheme: light;
+}
+
+/* Светлые скроллбары/контролы по
+умолчанию */
+body.theme-dark {
+    color-scheme: dark;
+}
+
+/* Тёмные — при активной теме */
+
+.hero {
+    position: relative;
+    color: #fff;
+    padding: clamp(2rem, 6vw, 6rem) 1rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: image-set(
+            url("./hero-image2560x1440.jpg") 1x
+    );
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.hero {
+    background: linear-gradient(to top, rgba(0, 0, 0, .55), rgba(0, 0, 0, .15));
+}
